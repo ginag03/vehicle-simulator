@@ -33,3 +33,18 @@ fig = px.line(x=x, y=y)
 fig.update_layout(template="plotly_white")
 fig.update_yaxes(scaleanchor="x", scaleratio=1)
 fig.show()
+
+# actual radius
+R = L / np.tan(delta)
+print(f"Turning radius: R = {R:.2f} m")
+
+# estimated radius from simulation
+distance_travelled = 0
+
+for n in range(len(x) - 1):
+    dx = x[n + 1] - x[n]
+    dy = y[n + 1] - y[n]
+    distance_travelled += np.sqrt(dx**2 + dy**2)
+
+estimated_R = distance_travelled / (psi[-1] - psi[0])
+print(f"Estimated turning radius from simulation: R = {estimated_R:.2f} m")
