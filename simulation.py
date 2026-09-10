@@ -56,3 +56,13 @@ steering = [steering_input(t) for t in times]
 fig2 = px.line(x=times, y=steering, title="Steering angle over time", labels={"x": "Time (s)", "y": "Steering angle (rad)"})
 fig2.update_layout(template="plotly_white")
 fig2.show()
+
+# plot 3: yaw angle over time
+fig3 = px.line(
+    x=times,
+    y=np.rad2deg(psi),
+    labels={"x": "Time (s)", "y": "Yaw angle (deg)"},
+    title="Yaw angle"
+)
+fig3.update_layout(template="plotly_white")
+fig3.show()
