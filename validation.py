@@ -15,7 +15,7 @@ def constant_delta(_t):
 
 def test_turning_radius():
     # check if the turning radius is correct
-    x, y, psi = simulate(L, v, constant_delta, dt, total_sim_time)
+    x, y, psi, _ = simulate(L, v, constant_delta, dt, total_sim_time)
 
     R = L / np.tan(constant_delta(0))
 
@@ -42,7 +42,7 @@ def zero_delta(_t):
 
 def test_straight_line_motion():
     # check if y and psi remain close to zero
-    x, y, psi = simulate(L, v, zero_delta, dt, total_sim_time)
+    x, y, psi, _ = simulate(L, v, zero_delta, dt, total_sim_time)
 
     max_y_error = np.max(np.abs(y))
     max_psi_error = np.max(np.abs(psi))

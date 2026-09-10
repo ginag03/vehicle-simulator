@@ -4,16 +4,16 @@ import plotly.express as px
 # basic parameters
 L = 2.5 # wheelbase (m)
 v = 5 # speed (m/s)
-def delta(t):
+def steering_input(t):
     # steering angle (rad)
     if t < 2:
         return 0
     else:
-        return 0.17
+        return np.deg2rad(10)
 dt = 0.01 # timestep (s)
 total_sim_time = 60
 
-def simulate(L, v, delta, dt, total_sim_time):
+def simulate(L, v, steering_input, dt, total_sim_time):
     x = [0]
     y = [0]
     psi = [0]
@@ -22,15 +22,17 @@ def simulate(L, v, delta, dt, total_sim_time):
 
     for n in range(steps):
         t = n * dt
-        steering_angle = delta(t)
+        steering_angle = steering_input(t)
 
         x.append(x[n] + v * np.cos(psi[n]) * dt)
         y.append(y[n] + v * np.sin(psi[n]) * dt)
         psi.append(psi[n] + (v / L) * np.tan(steering_angle) * dt)
 
-    return x, y, psi
+    times = [n * dt for n in range(len(x))]
 
-x, y, psi = simulate(L, v, delta, dt, total_sim_time)
+    return x, y, psi, times
+
+x, y, psi, times = simulate(L, v, steering_input, dt, total_sim_time)
 
 print("x values:")
 print(x[:10])
